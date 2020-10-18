@@ -1,48 +1,44 @@
 import random
 import typing as tp
 
+
 def is_prime(n: int) -> bool:
-    if n == 1:   
-        return False
-    else:
-        for i in range (2,n):
-            if n %i == 0:
-                return False
-        return True
+    """
+    Tests to see if a number is prime.
+
+    >>> is_prime(2)
+    True
+    >>> is_prime(11)
+    True
+    >>> is_prime(8)
+    False
+    """
+    # PUT YOUR CODE HERE
     pass
+
 
 def gcd(a: int, b: int) -> int:
-    if a == 0:
-        return a + b
-    elif b == 0:
-        return a + b
-    else:
-        if a > b:
-            return gcd(a - b,b)
-        else:
-            return gcd(b - a,a)
+    """
+    Euclid's algorithm for determining the greatest common divisor.
+
+    >>> gcd(12, 15)
+    3
+    >>> gcd(3, 7)
+    1
+    """
+    # PUT YOUR CODE HERE
     pass
 
+
 def multiplicative_inverse(e: int, phi: int) -> int:
-    p = 1
-    q = 0
-    r = 0
-    m = 1
-    a = e
-    b = phi
-    while a != 0 and b != 0:
-        if a >= b:
-            a = a - b
-            p = p - r
-            q = q - m
-        else:
-            b = b - a
-            r = r - p
-            m = m - q
-        if a != 0:
-            x = p
-            d = x % phi
-            return d 
+    """
+    Euclid's extended algorithm for finding the multiplicative
+    inverse of two numbers.
+
+    >>> multiplicative_inverse(7, 40)
+    23
+    """
+    # PUT YOUR CODE HERE
     pass
 
 
@@ -51,12 +47,15 @@ def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[in
         raise ValueError("Both numbers must be prime.")
     elif p == q:
         raise ValueError("p and q cannot be equal")
-    n = p * q
-    phi = (p - 1) * (q - 1)
+
+    # n = pq
+    # PUT YOUR CODE HERE
+
+    # phi = (p-1)(q-1)
+    # PUT YOUR CODE HERE
+
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)
-    while (is_prime(e) != True) or (e >= phi) or (gcd(e, phi) != 1):
-        e = random.randrange(1, phi)
 
     # Use Euclid's Algorithm to verify that e and phi(n) are coprime
     g = gcd(e, phi)
