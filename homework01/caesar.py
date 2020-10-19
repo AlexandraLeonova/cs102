@@ -7,9 +7,9 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     m = ord('z') 
     om = ord('Z')
     for s in range(len(plaintext)):
-        if ord(plaintext[s]) >= k and ord(plaintext[s]) <= m:
+        if  k <= ord(plaintext[s]) <= m:
             ciphertext += chr(((ord(plaintext[s]) - k + shift) % 26) + k)
-        elif ord(plaintext[s]) >= ok and ord(plaintext[s]) <= om:
+        elif ok <= ord(plaintext[s]) <= om:
             ciphertext += chr(((ord(plaintext[s]) - ok + shift) % 26) + ok)
         else:
             ciphertext += plaintext[s]   
@@ -22,9 +22,9 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     m = ord('z') 
     om = ord('Z')
     for s in range(len(ciphertext)):
-        if ord(ciphertext[s]) >= k and ord(ciphertext[s]) <= m:
+        if k <=  ord(ciphertext[s]) <= m:
              plaintext += chr(((ord(ciphertext[s]) - k - shift) % 26) + k)
-        elif ord(ciphertext[s]) >= ok and ord(ciphertext[s]) <= om:
+        elif ok <= ord(ciphertext[s]) <= om:
             plaintext += chr(((ord(ciphertext[s]) - ok - shift) % 26) + ok)
         else:
             plaintext += ciphertext[s]
