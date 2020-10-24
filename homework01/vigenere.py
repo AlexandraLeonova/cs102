@@ -8,14 +8,16 @@ def encrypt_vigenere(plaintext: str, string, keyword: str) -> str:
             shift = ord(keyword[t]) - ord('A')
         elif ord('a') <= ord(keyword[t]) <= ord('z'):
             shift = ord(keyword[t]) - ord('a')
-        else: continue
+        else: 
+            continue
 
-        if ord('A') - ord(plaintext[s]) <= ord('Z'):
+        if ord('A') <= ord(plaintext[s]) <= ord('Z'):
             if 65 <= ord(keyword[t]) <= 90:
                 shift = ord(keyword[t]) - 65
             elif 97 <= ord(keyword[t]) <= 122:
                 shift = ord(keyword[t]) - 97
-            else: continue
+            else: 
+                continue
 
             if ord('Z') - ord(plaintext[s]) < shift:
                 ciphertext += chr(ord('A') - 1 + (shift - ord('Z') + ord(plaintext[s])))
@@ -27,7 +29,8 @@ def encrypt_vigenere(plaintext: str, string, keyword: str) -> str:
                 shift = ord(keyword[t]) - 65
             elif 97 <= ord(keyword[t]) <= 122:
                 shift = ord(keyword[t]) - 97
-            else: continue
+            else: 
+                continue
             if ord('z')  - ord(plaintext[s]) < shift:
                 ciphertext += chr(ord('a') - 1 + (shift - ord('z') + ord(plaintext[s])))
             else:

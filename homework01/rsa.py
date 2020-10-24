@@ -6,10 +6,9 @@ def is_prime(n: int) -> bool:
         return False
     else:
         for i in range (2,n):
-            if n %i == 0:
+            if n % i == 0:
                 return False
         return True
-    pass
 
 def gcd(a: int, b: int) -> int:
     if a == 0:
@@ -21,30 +20,13 @@ def gcd(a: int, b: int) -> int:
             return gcd(a - b,b)
         else:
             return gcd(b - a,a)
-    pass
 
 def multiplicative_inverse(e: int, phi: int) -> int:
-    p = 1
-    q = 0
-    r = 0
-    m = 1
-    a = e
-    b = phi
-    while a != 0 and b != 0:
-        if a >= b:
-            a = a - b
-            p = p - r
-            q = q - m
-        else:
-            b = b - a
-            r = r - p
-            m = m - q
-        if a != 0:
-            x = p
-            d = x % phi
-            return d 
-    pass
-
+    e = e % phi
+    for d in range (1,phi):
+        if e * d % phi == 1:
+            return d
+    return 0
 
 def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
     if not (is_prime(p) and is_prime(q)):
