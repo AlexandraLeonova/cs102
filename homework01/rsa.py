@@ -2,16 +2,31 @@ import random
 import typing as tp
 
 def is_prime(n: int) -> bool:
-    if n == 1:   
+    """
+    >>> is_prime(2)
+    True
+    >>> is_prime(11)
+    True
+    >>> is_prime(8)
+    False
+    """
+
+    if n == 1:
         return False
-    else:
+    else: 
         for i in range (2,n):
-            if n %i == 0:
+            if n % i == 0:
                 return False
         return True
-    pass
 
 def gcd(a: int, b: int) -> int:
+    """
+    >>> gcd(12, 15)
+    3
+    >>> gcd(3, 7)
+    1
+    """
+    
     if a == 0:
         return a + b
     elif b == 0:
@@ -21,30 +36,19 @@ def gcd(a: int, b: int) -> int:
             return gcd(a - b,b)
         else:
             return gcd(b - a,a)
-    pass
 
 def multiplicative_inverse(e: int, phi: int) -> int:
-    p = 1
-    q = 0
-    r = 0
-    m = 1
-    a = e
-    b = phi
-    while a != 0 and b != 0:
-        if a >= b:
-            a = a - b
-            p = p - r
-            q = q - m
-        else:
-            b = b - a
-            r = r - p
-            m = m - q
-        if a != 0:
-            x = p
-            d = x % phi
-            return d 
-    pass
 
+    """
+    >>> multiplicative_inverse(7, 40)
+    23
+    """
+
+    e = e % phi
+    for i in range (1,phi):
+        if e * i % phi == 1:
+            return i
+    return 0
 
 def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
     if not (is_prime(p) and is_prime(q)):
@@ -105,3 +109,6 @@ if __name__ == "__main__":
     print("Decrypting message with public key ", public, " . . .")
     print("Your message is:")
     print(decrypt(public, encrypted_msg))
+
+
+
