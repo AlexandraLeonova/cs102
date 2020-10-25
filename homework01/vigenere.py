@@ -1,6 +1,16 @@
 def encrypt_vigenere(plaintext: str, string, keyword: str) -> str:
-    ciphertext = ""
+    """
+    Encrypts plaintext using a Vigenere cipher.
 
+    >>> encrypt_vigenere("PYTHON", "A")
+    'PYTHON'
+    >>> encrypt_vigenere("python", "a")
+    'python'
+    >>> encrypt_vigenere("ATTACKATDAWN", "LEMON")
+    'LXFOPVEFRNHR'
+    """
+
+    ciphertext = ""
     for s in range(len(plaintext)):
         shift = 0
         t = s % len(keyword)
@@ -40,6 +50,16 @@ def encrypt_vigenere(plaintext: str, string, keyword: str) -> str:
     return ciphertext
 
 def decrypt_vigenere(ciphertext: str, string, keyword: str) -> str:
+    """
+    Decrypts a ciphertext using a Vigenere cipher.
+
+    >>> decrypt_vigenere("PYTHON", "A")
+    'PYTHON'
+    >>> decrypt_vigenere("python", "a")
+    'python'
+    >>> decrypt_vigenere("LXFOPVEFRNHR", "LEMON")
+    'ATTACKATDAWN'
+    """
     plaintext = ""
     for s in range(len(ciphertext)):
         t = s % len(keyword)
@@ -63,3 +83,7 @@ def decrypt_vigenere(ciphertext: str, string, keyword: str) -> str:
         else:
             plaintext += ciphertext[s]
     return plaintext
+
+
+
+    
