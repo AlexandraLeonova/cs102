@@ -15,7 +15,7 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     ciphertext = "" 
     for s in range(len(plaintext)):
-        if  ord('a') <= ord(plaintext[s]) <= ord('z'):
+        if  ord('a') <= ord(plaintext[s]) <=  ord('z'):
             ciphertext += chr(((ord(plaintext[s]) - ord('a') + shift) % 26) + ord('a'))
         elif ord('A') <= ord(plaintext[s]) <= ord('Z'):
             ciphertext += chr(((ord(plaintext[s]) - ord('A') + shift) % 26) + ord('A'))

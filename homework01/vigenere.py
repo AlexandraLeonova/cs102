@@ -81,4 +81,7 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
         else:
             plaintext += ciphertext[s]
     return plaintext
+<<<<<<< HEAD
 
+=======
+>>>>>>> d1b9aa7da8991bb0aae74a97667e4d2813350d4e
