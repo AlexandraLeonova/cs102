@@ -194,5 +194,3 @@ def generate_sudoku(N: int) -> List[List[str]]:
     return grid  # type: ignore
 
 
-
-
