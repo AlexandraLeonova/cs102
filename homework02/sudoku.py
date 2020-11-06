@@ -7,6 +7,7 @@ def read_sudoku(filename: str) -> List[List[str]]:
     grid = group(digits, 9)
     return grid
 
+
 def display(grid: List[List[str]]) -> None:
     """Вывод Судоку """
     length = 2
@@ -157,7 +158,6 @@ def check_solution(solution: List[List[str]]) -> bool:
                 return False
     return True
 
-
 def generate_sudoku(N: int) -> List[List[str]]:
     """ Генерация судоку заполненного на N элементов
 
@@ -191,4 +191,8 @@ def generate_sudoku(N: int) -> List[List[str]]:
                 N -= 1
 
     return grid  # type: ignore
+
+
+
+
 
