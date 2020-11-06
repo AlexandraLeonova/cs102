@@ -33,9 +33,9 @@ def gcd(a: int, b: int) -> int:
         return a + b
     else:
         if a > b:
-            return gcd(a - b,b)
+            return gcd(a - b, b)
         else:
-            return gcd(b - a,a)
+            return gcd(b - a, a)
 
 def multiplicative_inverse(e: int, phi: int) -> int:
 
@@ -109,6 +109,4 @@ if __name__ == "__main__":
     print("Decrypting message with public key ", public, " . . .")
     print("Your message is:")
     print(decrypt(public, encrypted_msg))
-
-
 
