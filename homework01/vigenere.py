@@ -9,6 +9,7 @@ def encrypt_vigenere(plaintext: str , keyword: str) -> str:
     'LXFOPVEFRNHR'
     """
 
+
     ciphertext = ""
     for s in range(len(plaintext)):
         t = s % len(keyword)
