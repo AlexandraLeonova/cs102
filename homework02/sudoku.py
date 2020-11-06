@@ -139,7 +139,6 @@ def solve(grid: List[List[str]]) -> Optional[List[List[str]]]:
     grid[row][col] = "."
     return None
 
-
 def check_solution(solution: List[List[str]]) -> bool:
     """ Если решение solution верно, то вернуть True, в противном случае False """
     # TODO: Add doctests with bad puzzles
