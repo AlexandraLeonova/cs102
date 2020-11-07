@@ -45,6 +45,7 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     >>> decrypt_vigenere("LXFOPVEFRNHR", "LEMON")
     'ATTACKATDAWN'
     """
+
     plaintext = ""
     for s in range(len(ciphertext)):
         t = s % len(keyword)
@@ -56,12 +57,16 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
             continue
         if ord("A") <= ord(ciphertext[s]) <= ord("Z"):
             if ord(ciphertext[s]) - shift < ord("A"):
-                plaintext += chr(ord("Z") + 1 - (shift - (ord(ciphertext[s]) - ord("A"))))
+                plaintext += chr(
+                    ord("Z") + 1 - (shift - (ord(ciphertext[s]) - ord("A")))
+                )
             else:
                 plaintext += chr(ord(ciphertext[s]) - shift)
         elif ord("a") <= ord(ciphertext[s]) <= ord("z"):
             if ord(ciphertext[s]) - shift < ord("a"):
-                plaintext += chr(ord("z") + 1 - (shift - (ord(ciphertext[s]) - ord("a"))))
+                plaintext += chr(
+                    ord("z") + 1 - (shift - (ord(ciphertext[s]) - ord("a")))
+                )
             else:
                 plaintext += chr(ord(ciphertext[s]) - shift)
         else:
