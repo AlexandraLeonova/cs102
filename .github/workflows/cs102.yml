@@ -8,16 +8,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.8.6
-    uses: actions/setup-python@v2
-    with:
-      python-version: '3.8.6'
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8.6'
     - name: Install dependencies
-    run: |
-      python -m pip install —upgrade pip
-      pip install black mypy pylint
+      run: |
+        python -m pip install —upgrade pip
+        pip install black mypy pylint
     - name: Run black
-    run: |
-      black —check —diff —color —exclude "test*" ${{ github.head_ref }}
+      run: |
+        black —check —diff —color —exclude "test*" ${{ github.head_ref }}
     - name: Run mypy
       run: |
       mypy ${{ github.head_ref }}
