@@ -1,7 +1,6 @@
 import random
 import typing as tp
 
-
 def is_prime(n: int) -> bool:
     """
     >>> is_prime(2)
@@ -101,7 +100,6 @@ def decrypt(pk: tp.Tuple[int, int], ciphertext: tp.List[int]) -> str:
     plain = [chr((char ** key) % n) for char in ciphertext]
     # Return the array of bytes as a string
     return "".join(plain)
-
 
 if __name__ == "__main__":
     print("RSA Encrypter/ Decrypter")
