@@ -1,6 +1,7 @@
 import random
 import typing as tp
 
+
 def is_prime(n: int) -> bool:
     """
     >>> is_prime(2)
@@ -13,11 +14,12 @@ def is_prime(n: int) -> bool:
 
     if n == 1:
         return False
-    else: 
-        for i in range (2,n):
+    else:
+        for i in range(2, n):
             if n % i == 0:
                 return False
         return True
+
 
 def gcd(a: int, b: int) -> int:
     """
@@ -37,6 +39,7 @@ def gcd(a: int, b: int) -> int:
         else:
             return gcd(b - a, a)
 
+
 def multiplicative_inverse(e: int, phi: int) -> int:
 
     """
@@ -47,10 +50,11 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     """
 
     e = e % phi
-    for i in range (1,phi):
+    for i in range(1, phi):
         if e * i % phi == 1:
             return i
     return 0
+
 
 def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
     if not (is_prime(p) and is_prime(q)):
@@ -113,4 +117,3 @@ if __name__ == "__main__":
     print("Decrypting message with public key ", public, " . . .")
     print("Your message is:")
     print(decrypt(public, encrypted_msg))
-
