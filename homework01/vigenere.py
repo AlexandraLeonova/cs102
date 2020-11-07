@@ -52,7 +52,7 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
         if ord("A") <= ord(keyword[t]) <= ord("Z"):
             shift = ord(keyword[t]) - ord("A")
         elif ord("a") <= ord(keyword[t]) - ord("z"):
-             hift = ord(keyword[t]) - ord("a")
+            shift = ord(keyword[t]) - ord("a")
         else:
             continue
         if ord("A") <= ord(ciphertext[s]) <= ord("Z"):
