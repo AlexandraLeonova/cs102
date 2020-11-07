@@ -9,39 +9,24 @@ def encrypt_vigenere(plaintext: str , keyword: str) -> str:
     'LXFOPVEFRNHR'
     """
 
-
     ciphertext = ""
-    for s in range(len(plaintext)):
+    for s in range(len(plaintext)):   
         t = s % len(keyword)
         if ord('A') <= ord(keyword[t]) <= ord('Z'):
-            shift = ord(keyword[t]) - ord('A')
+            shift = ord(keyword[t]) - ord('A') 
         elif ord('a') <= ord(keyword[t]) <= ord('z'):
             shift = ord(keyword[t]) - ord('a')
-        else: 
-            continue
+        else: continue
 
         if ord('A') <= ord(plaintext[s]) <= ord('Z'):
-            if 65 <= ord(keyword[t]) <= 90:
-                shift = ord(keyword[t]) - 65
-            elif 97 <= ord(keyword[t]) <= 122:
-                shift = ord(keyword[t]) - 97
-            else: 
-                continue
-
             if ord('Z') - ord(plaintext[s]) < shift:
-                ciphertext += chr(ord('A') - 1 + (shift - ord('Z') + ord(plaintext[s])))
+               ciphertext += chr(ord('A') - 1 + (shift - ord('Z') + ord(plaintext[s])))
             else:
                 ciphertext += chr(ord(plaintext[s]) + shift)
 
         elif ord('a') <= ord(plaintext[s]) <= ord('z'):
-            if 65 <= ord(keyword[t]) <= 90:
-                shift = ord(keyword[t]) - 65
-            elif 97 <= ord(keyword[t]) <= 122:
-                shift = ord(keyword[t]) - 97
-            else: 
-                continue
-            if ord('z')  - ord(plaintext[s]) < shift:
-                ciphertext += chr(ord('a') - 1 + (shift - ord('z') + ord(plaintext[s])))
+            if ord('z') - ord(plaintext[s]) < shift:
+               ciphertext += chr(ord('a') - 1 + (shift-ord('z') + ord(plaintext[s])))
             else:
                 ciphertext += chr(ord(plaintext[s]) + shift)
         else:
