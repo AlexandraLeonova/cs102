@@ -14,7 +14,12 @@ def display(grid: List[List[str]]) -> None:
     length = 2
     line = "+".join(["-" * (length * 3)] * 3)
     for row in range(9):
-        print("".join(grid[row][col].center(length) + ("|" if str(col) in "25" else "") for col in range(9)))
+        print(
+            "".join(
+                grid[row][col].center(length) + ("|" if str(col) in "25" else "")
+                for col in range(9)
+            )
+        )
         if str(row) in "25":
             print(line)
     print()
@@ -105,8 +110,12 @@ def find_possible_values(grid: List[List[str]], pos: Tuple[int, int]) -> Set[str
     >>> values == {'2', '5', '9'}
     True
     """
-    return set("123456789") - set(get_row(grid, pos)) - set(get_col(grid, pos)) - set(get_block(grid, pos))
-
+    return (
+        set("123456789")
+        - set(get_row(grid, pos))
+        - set(get_col(grid, pos))
+        - set(get_block(grid, pos))
+    )
 
 def solve(grid: List[List[str]]) -> Optional[List[List[str]]]:
     """ Решение пазла, заданного в grid """
