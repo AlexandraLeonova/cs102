@@ -14,10 +14,10 @@ def display(grid: List[List[str]]) -> None:
     for row in range(9):
         print(
             "".join(
-                grid[row][col].center(length) + ("|" if str(col) in "25" else"")
-        for col in range(9)
-             )
-         )
+                grid[row][col].center(length) + ("|" if str(col) in "25" else "")
+                for col in range(9)
+            )
+        )
         if str(row) in "25":
             print(line)
     print()
