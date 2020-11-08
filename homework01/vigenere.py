@@ -1,4 +1,4 @@
-def encrypt_vigenere(plaintext: str, string, keyword: str) -> str:
+def encrypt_vigenere(plaintext: str , keyword: str) -> str:
     """
     Encrypts plaintext using a Vigenere cipher.
 
@@ -12,7 +12,6 @@ def encrypt_vigenere(plaintext: str, string, keyword: str) -> str:
 
     ciphertext = ""
     for s in range(len(plaintext)):
-        shift = 0
         t = s % len(keyword)
         if ord('A') <= ord(keyword[t]) <= ord('Z'):
             shift = ord(keyword[t]) - ord('A')
@@ -49,7 +48,7 @@ def encrypt_vigenere(plaintext: str, string, keyword: str) -> str:
             ciphertext += plaintext[s]
     return ciphertext
 
-def decrypt_vigenere(ciphertext: str, string, keyword: str) -> str:
+def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     """
     Decrypts a ciphertext using a Vigenere cipher.
 
@@ -63,7 +62,6 @@ def decrypt_vigenere(ciphertext: str, string, keyword: str) -> str:
     plaintext = ""
     for s in range(len(ciphertext)):
         t = s % len(keyword)
-        shift = 0
         if ord('A') <= ord(keyword[t]) <= ord('Z'):
             shift = ord(keyword[t]) - ord('A')
         elif ord('a') <= ord(keyword[t]) - ord('z'):
@@ -84,6 +82,3 @@ def decrypt_vigenere(ciphertext: str, string, keyword: str) -> str:
             plaintext += ciphertext[s]
     return plaintext
 
-
-
-    

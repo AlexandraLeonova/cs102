@@ -21,6 +21,7 @@ def is_prime(n: int) -> bool:
 
 def gcd(a: int, b: int) -> int:
     """
+    Euclid's algorithm for determining the greatest common divisor.
     >>> gcd(12, 15)
     3
     >>> gcd(3, 7)
@@ -33,13 +34,15 @@ def gcd(a: int, b: int) -> int:
         return a + b
     else:
         if a > b:
-            return gcd(a - b,b)
+            return gcd(a - b, b)
         else:
-            return gcd(b - a,a)
+            return gcd(b - a, a)
 
 def multiplicative_inverse(e: int, phi: int) -> int:
 
     """
+    Euclid's extended algorithm for finding the multiplicative
+    inverse of two numbers.
     >>> multiplicative_inverse(7, 40)
     23
     """
@@ -109,6 +112,4 @@ if __name__ == "__main__":
     print("Decrypting message with public key ", public, " . . .")
     print("Your message is:")
     print(decrypt(public, encrypted_msg))
-
-
 
