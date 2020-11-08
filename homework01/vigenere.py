@@ -47,29 +47,11 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
 
     plaintext = ""
     for s in range(len(ciphertext)):
-        t = s % len(keyword)
-        if ord("A") <= ord(keyword[t]) <= ord("Z"):
-            shift = ord(keyword[t]) - ord("A")
-        elif ord("a") <= ord(keyword[t]) - ord("z"):
-            shift = ord(keyword[t]) - ord("a")
-        else:
-            continue
-
-        if ord("A") <= ord(ciphertext[s]) <= ord("Z"):
-            if ord(ciphertext[s]) - shift < ord("A"):
-                plaintext += chr(
-                    ord("Z") + 1 - (shift - (ord(ciphertext[s]) - ord("A")))
-                )
-            else:
-                plaintext += chr(ord(ciphertext[s]) - shift)
-
-        elif ord("a") <= ord(ciphertext[s]) <= ord("z"):
-            if ord(ciphertext[s]) - shift < ord("a"):
-                plaintext += chr(
-                    ord("z") + 1 - (shift - (ord(ciphertext[s]) - ord("a")))
-                )
-            else:
-                plaintext += chr(ord(ciphertext[s]) - shift)
+        if "a" <= ciphertext[s] <= "z":
+            plaintext += chr(ord("a") + ((ord(ciphertext[s]) + 7) % 26 - shift) % 26)
+        elif "A" <= ciphertext[s] <= "Z":
+            shift = (ord(keyword[s % len(keyword)]) + 13) % 26 
+            plaintext += chr(ord("A") + ((ord(ciphertext[s]) + 13) % 26 - shift) % 26)
         else:
             plaintext += ciphertext[s]
     return plaintext
