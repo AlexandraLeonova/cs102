@@ -81,7 +81,6 @@ def get_block(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
     col = pos[1] - pos[1] % 3
     return [(grid[row + s][col + j]) for s in range(3) for j in range(3)]
 
-
 def find_empty_positions(grid: List[List[str]]) -> Optional[Tuple[int, int]]:
     """Найти первую свободную позицию в пазле
 
