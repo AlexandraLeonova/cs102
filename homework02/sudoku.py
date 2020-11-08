@@ -1,23 +1,20 @@
 from typing import Tuple, List, Set, Optional
 import random
 
+
 def read_sudoku(filename: str) -> List[List[str]]:
     """ Прочитать Судоку из указанного файла """
     digits = [c for c in open(filename).read() if c in "123456789."]
     grid = group(digits, 9)
     return grid
 
+
 def display(grid: List[List[str]]) -> None:
     """Вывод Судоку """
     length = 2
     line = "+".join(["-" * (length * 3)] * 3)
     for row in range(9):
-        print(
-            "".join(
-                grid[row][col].center(length) + ("|" if str(col) in "25" else "")
-                for col in range(9)
-            )
-        )
+        print("".join(grid[row][col].center(length) + ("|" if str(col) in "25" else "") for col in range(9)))
         if str(row) in "25":
             print(line)
     print()
@@ -33,6 +30,7 @@ def group(values: List[str], n: int) -> List[List[str]]:
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
     return [values[s : s + n] for s in range(0, len(values), n)]
+
 
 def get_row(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
     """Возвращает все значения для номера строки, указанной в pos
@@ -107,12 +105,7 @@ def find_possible_values(grid: List[List[str]], pos: Tuple[int, int]) -> Set[str
     >>> values == {'2', '5', '9'}
     True
     """
-    return (
-        set("123456789")
-        - set(get_row(grid, pos))
-        - set(get_col(grid, pos))
-        - set(get_block(grid, pos))
-    )
+    return set("123456789") - set(get_row(grid, pos)) - set(get_col(grid, pos)) - set(get_block(grid, pos))
 
 
 def solve(grid: List[List[str]]) -> Optional[List[List[str]]]:
@@ -139,6 +132,7 @@ def solve(grid: List[List[str]]) -> Optional[List[List[str]]]:
     grid[row][col] = "."
     return None
 
+
 def check_solution(solution: List[List[str]]) -> bool:
     """ Если решение solution верно, то вернуть True, в противном случае False """
     # TODO: Add doctests with bad puzzles
@@ -156,6 +150,7 @@ def check_solution(solution: List[List[str]]) -> bool:
             if solved != set("123456789"):
                 return False
     return True
+
 
 def generate_sudoku(N: int) -> List[List[str]]:
     """Генерация судоку заполненного на N элементов
