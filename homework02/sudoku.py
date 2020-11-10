@@ -60,10 +60,7 @@ def get_col(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    col = []
-    for s in range(len(grid)):
-        col.append(grid[s][pos[1]])
-    return col
+    return [(grid[s][pos[1]]) for s in range(len(grid))]
 
 
 def get_block(grid: List[List[str]], pos: Tuple[int, int]) -> List[str]:
