@@ -20,4 +20,8 @@ class Console(UI):
     def run(self) -> None:
         screen = curses.initscr()
         # PUT YOUR CODE HERE
+
+
+
+        
         curses.endwin()
