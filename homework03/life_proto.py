@@ -96,9 +96,9 @@ class GameOfLife:
         """
 
         scroll = self.cell_size - 1
-        for i in range(self.life.rows):
-            for s in range(self.life.cols):
-                if self.life.curr_generation[i][s] == 1:
+        for i in range(self.cell_height):
+            for s in range(self.cell_width):
+                if self.grid[i][s] == 1:
                     color = pygame.Color("green")
                 else:
                     color = pygame.Color("white")
@@ -155,7 +155,7 @@ class GameOfLife:
                 if (self.grid[i][s] == 0) and sum(self.get_neighbours((i, s))) == 3:
                     copy_grid[i][s] = 1
                 elif (self.grid[i][s] == 1) and (
-                    1 < sum(self.get_neighbours((i, j))) < 4
+                    1 < sum(self.get_neighbours((i, s))) < 4
                 ):
                     copy_grid[i][s] = 1
 

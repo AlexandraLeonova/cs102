@@ -104,7 +104,7 @@ class GameOfLife:
         game.curr_generation = doc_grid
         return game
 
-    def save(filename: pathlib.Path) -> None:
+    def save(self, filename: pathlib.Path) -> None:
         """
         Сохранить текущее состояние клеток в указанный файл.
         """
