@@ -150,7 +150,7 @@ class GameOfLife:
             for s in range(self.cell_width):
                 if (self.grid[i][s] == 0) and sum(self.get_neighbours((i, s))) == 3:
                     copy_grid[i][s] = 1
-                elif (self.grid[i][s] == 1) and (1 < sum(self.get_neighbours((i, s))) < 4):
+                elif (self.grid[i][s] == 1) and (1 < sum(self.get_neighbours((i, j))) < 4):
                     copy_grid[i][s] = 1
 
         return copy_grid
