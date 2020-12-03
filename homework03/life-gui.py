@@ -1,6 +1,7 @@
 import pygame
-from life import GameOfLife
 from pygame.locals import *
+
+from life import GameOfLife
 from ui import UI
 
 
@@ -23,17 +24,30 @@ class GUI(UI):
 
     def draw_grid(self) -> None:
         scroll = self.cell_size - 1
-        for i in range(self.life.rows):
-            for s in range(self.life.cols):
-                if self.life.curr_generation[i][s] == 1:
-                    color = pygame.Color("green")
+        for x in range(self.cell_width):
+            for y in range(self.cell_height):
+                if self.grid[y][x] != 0:
+                    pygame.draw.rect(
+                        self.screen,
+                        pygame.Color("green"),
+                        (
+                            (self.cell_size * x + 1),
+                            (self.cell_size * y + 1),
+                            scroll,
+                            scroll,
+                        ),
+                    )
                 else:
-                    color = pygame.Color("white")
-                pygame.draw.rect(
-                    self.screen,
-                    color,
-                    (i * self.cell_size + 1, s * self.cell_size + 1, scroll, scroll),
-                )
+                    pygame.draw.rect(
+                        self.screen,
+                        pygame.Color("white"),
+                        (
+                            (self.cell_size * x + 1),
+                            (self.cell_size * y + 1),
+                            scroll,
+                            scroll,
+                        ),
+                    )
 
     def run(self) -> None:
 

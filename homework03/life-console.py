@@ -1,4 +1,7 @@
 import curses
+import curses.ascii
+import pathlib
+from time import sleep
 
 from life import GameOfLife
 from ui import UI
@@ -10,46 +13,18 @@ class Console(UI):
 
     def draw_borders(self, screen) -> None:
         """ Отобразить рамку. """
-
+        
         screen.clear()
-        y, x = screen.getmaxyx()
-        doc = " "
-
-        for row in range(y):
-            for col in range(x):
-                if row == 0 or row == (y - 1):
-                    if col == 0 or col == x:
-                        doc += "*"
-                    else:
-                        doc += "-"
-                elif row < (y - 1) and row > 0:
-                    if col == 0 or col == (x - 1):
-                        doc += "|"
-                    else:
-                        doc += " "
-            try:
-                screen.addstr(doc)
-            except curses.error:
-                pass
-            doc = " "
-
-        self.draw_grid(screen)
-        screen.refresh()
-        screen.getch()
 
     def draw_grid(self, screen) -> None:
         """ Отобразить состояние клеток. """
 
-        y, x = screen.getmaxyx()
-        col = (x - self.life.cols) // 2
-        row = (y - self.life.rows) // 2
-        for count_row, just_row in enumerate(self.life.curr_generation):
-            for count_col, just_col in enumerate(just_row):
-                if just_col:
-                    try:
-                        screen.addstr(count_row + row, count_col + col, "*")
-                    except curses.error:
-                        pass
+        for i in range(self.life.rows):
+            for j in range(self.life.cols):
+                if self.life.curr_generation[i][j] == 1:
+                    screen.addch(i + 1, j + 1, "*")
+                else:
+                    screen.addch(i + 1, j + 1, " ")
 
     def run(self) -> None:
         screen = curses.initscr()

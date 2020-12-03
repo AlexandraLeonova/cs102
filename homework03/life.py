@@ -30,34 +30,34 @@ class GameOfLife:
 
     def create_grid(self, randomize: bool = False) -> Grid:
 
-        grid = [
-            [random.randint(0, 1) for s in range(self.cols)] for i in range(self.rows)
-        ]
-        return grid
+        if randomize == True:
+            return [[random.randint(0, 1) for x in range(self.cols)] for _ in range(self.rows)]
+        else:
+            return [[0 for _ in range(self.cols)] for _ in range(self.rows)]
 
     def get_neighbours(self, cell: Cell) -> Cells:
 
         neighbours = []
         row, col = cell
         for i in range(max(0, row - 1), min(self.rows, row + 2)):
-            for s in range(max(0, col - 1), min(self.cols, col + 2)):
-                if (i, s) != cell:
-                    neighbours.append(self.curr_generation[i][s])
+            for j in range(max(0, col - 1), min(self.cols, col + 2)):
+                if (i, j) != cell:
+                    neighbours.append(self.curr_generation[i][j])
         return neighbours
 
     def get_next_generation(self) -> Grid:
 
         copy_grid = self.create_grid(False)
         for i in range(self.rows):
-            for s in range(self.cols):
-                if (self.curr_generation[i][s] == 0) and sum(
-                    self.get_neighbours((i, s))
+            for j in range(self.cols):
+                if (self.curr_generation[i][j] == 0) and sum(
+                    self.get_neighbours((i, j))
                 ) == 3:
-                    copy_grid[i][s] = 1
-                elif (self.curr_generation[i][s] == 1) and (
-                    1 < sum(self.get_neighbours((i, s))) < 4
+                    copy_grid[i][j] = 1
+                elif (self.curr_generation[i][j] == 1) and (
+                    1 < sum(self.get_neighbours((i, j))) < 4
                 ):
-                    copy_grid[i][s] = 1
+                    copy_grid[i][j] = 1
 
         return copy_grid
 
