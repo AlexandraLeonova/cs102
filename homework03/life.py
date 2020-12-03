@@ -31,7 +31,10 @@ class GameOfLife:
     def create_grid(self, randomize: bool = False) -> Grid:
 
         if randomize == True:
-            return [[random.randint(0, 1) for x in range(self.cols)] for _ in range(self.rows)]
+            return [
+                [random.randint(0, 1) for x in range(self.cols)]
+                for _ in range(self.rows)
+            ]
         else:
             return [[0 for _ in range(self.cols)] for _ in range(self.rows)]
 
@@ -68,7 +71,7 @@ class GameOfLife:
         if not self.is_max_generations_exceeded:
             self.prev_generation = self.curr_generation
             self.curr_generation = self.get_next_generation
-            self.generations += 1
+            self.generations = 1
 
     @property
     def is_max_generations_exceeded(self) -> bool:

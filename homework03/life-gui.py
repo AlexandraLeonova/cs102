@@ -21,6 +21,7 @@ class GUI(UI):
             pygame.draw.line(self.screen, pygame.Color("black"), (x, 0), (x, height))
         for y in range(0, height, self.cell_size):
             pygame.draw.line(self.screen, pygame.Color("black"), (0, y), (width, y))
+
     def draw_grid(self) -> None:
         scroll = self.cell_size - 1
         for x in range(self.life.rows):
@@ -95,4 +96,3 @@ if __name__ == "__main__":
     life = GameOfLife((20, 20), max_generations=500)
     gui = GUI(life)
     gui.run()
-
