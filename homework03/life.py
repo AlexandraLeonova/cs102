@@ -42,27 +42,24 @@ class GameOfLife:
 
         neighbours = []
         row, col = cell
-        for i in range(max(0, row - 1), min(self.rows, row + 2)):
-            for j in range(max(0, col - 1), min(self.cols, col + 2)):
-                if (i, j) != cell:
-                    neighbours.append(self.curr_generation[i][j])
+        for i in [-1, 0, 1]:
+            for j in [-1, 0, 1]:
+                if 0 <= row + i < self.rows and 0 <= col + j < self.cols and (i, j) != (0, 0):
+                    neighbours.append(self.curr_generation[row + i][col + j])
         return neighbours
+
 
     def get_next_generation(self) -> Grid:
 
-        copy_grid = self.create_grid(False)
-        for i in range(self.rows):
-            for j in range(self.cols):
-                if (self.curr_generation[i][j] == 0) and sum(
-                    self.get_neighbours((i, j))
-                ) == 3:
-                    copy_grid[i][j] = 1
-                elif (self.curr_generation[i][j] == 1) and (
-                    1 < sum(self.get_neighbours((i, j))) < 4
-                ):
-                    copy_grid[i][j] = 1
-
-        return copy_grid
+        new_gen = self.create_grid(False)
+        for x in range(self.rows):
+            for y in range(self.cols):
+                new_ngbrs = self.get_neighbours((x, y)).count(1)
+                if self.curr_generation[x][y] == 0 and new_ngbrs == 3:
+                    new_gen[x][y] = 1
+                elif self.curr_generation[x][y] == 1 and new_ngbrs in [2, 3]:
+                    new_gen[x][y] = 1
+        return new_gen
 
     def step(self) -> None:
         """
@@ -99,21 +96,20 @@ class GameOfLife:
         Прочитать состояние клеток из указанного файла.
         """
 
-        doc = open(filename, "r")
-        doc_grid = [[int(col) for col in row.strip()] for row in doc]
-        doc.close()
+        with open(filename) as file:
+            grid = [[int(x) for x in list(rw)] for rw in file.readline()]
+        row, col = len(grid), len(grid[0])
 
-        game = GameOfLife((len(doc_grid), len(doc_grid[0])))
-        game.curr_generation = doc_grid
+        game = GameOfLife((row, col))
+        game.curr_generation = grid
         return game
+
 
     def save(self, filename: pathlib.Path) -> None:
         """
         Сохранить текущее состояние клеток в указанный файл.
         """
-        doc = open(filename, "w")
-        for row in self.curr_generation:
-            for col in row:
-                doc.write(str(col))
-            doc.write("\n")
-        doc.close()
+        with open(filename) as file:
+            for row in self.curr_generation:
+                file.write("".join([str(x) for x in row]))
+                file.write("\n")
