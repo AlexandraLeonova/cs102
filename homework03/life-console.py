@@ -13,8 +13,6 @@ class Console(UI):
 
     def draw_borders(self, screen) -> None:
         """ Отобразить рамку. """
-
-
         screen.clear()
 
     def draw_grid(self, screen) -> None:
