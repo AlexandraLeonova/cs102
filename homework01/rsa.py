@@ -1,6 +1,7 @@
 import random
 import typing as tp
 
+
 def is_prime(n: int) -> bool:
     """
     >>> is_prime(2)
@@ -13,23 +14,22 @@ def is_prime(n: int) -> bool:
 
     if n == 1:
         return False
-    else: 
-        for i in range (2,n):
+    else:
+        for i in range(2, n):
             if n % i == 0:
                 return False
         return True
 
+
 def gcd(a: int, b: int) -> int:
     """
+    Euclid's algorithm for determining the greatest common divisor.
     >>> gcd(12, 15)
     3
     >>> gcd(3, 7)
     1
     """
-    
-    if a == 0:
-        return a + b
-    elif b == 0:
+    if a == 0 or b == 0:
         return a + b
     else:
         if a > b:
@@ -37,30 +37,36 @@ def gcd(a: int, b: int) -> int:
         else:
             return gcd(b - a, a)
 
+
 def multiplicative_inverse(e: int, phi: int) -> int:
 
     """
+    Euclid's extended algorithm for finding the multiplicative
+    inverse of two numbers.
     >>> multiplicative_inverse(7, 40)
     23
     """
 
     e = e % phi
-    for i in range (1,phi):
+    for i in range(1, phi):
         if e * i % phi == 1:
             return i
     return 0
 
-def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
+
+def generate_keypair(
+    p: int, q: int
+) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
     if not (is_prime(p) and is_prime(q)):
         raise ValueError("Both numbers must be prime.")
     elif p == q:
         raise ValueError("p and q cannot be equal")
+    # n = p * q
     n = p * q
+    # phi = (p-1) * (q-1)
     phi = (p - 1) * (q - 1)
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)
-    while (is_prime(e) != True) or (e >= phi) or (gcd(e, phi) != 1):
-        e = random.randrange(1, phi)
 
     # Use Euclid's Algorithm to verify that e and phi(n) are coprime
     g = gcd(e, phi)
@@ -109,4 +115,3 @@ if __name__ == "__main__":
     print("Decrypting message with public key ", public, " . . .")
     print("Your message is:")
     print(decrypt(public, encrypted_msg))
-
