@@ -95,3 +95,4 @@ if __name__ == "__main__":
     life = GameOfLife((20, 20), max_generations=500)
     gui = GUI(life)
     gui.run()
+
