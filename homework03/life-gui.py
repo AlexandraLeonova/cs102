@@ -21,12 +21,11 @@ class GUI(UI):
             pygame.draw.line(self.screen, pygame.Color("black"), (x, 0), (x, height))
         for y in range(0, height, self.cell_size):
             pygame.draw.line(self.screen, pygame.Color("black"), (0, y), (width, y))
-
     def draw_grid(self) -> None:
         scroll = self.cell_size - 1
-        for x in range(self.cell_width):
-            for y in range(self.cell_height):
-                if self.grid[y][x] != 0:
+        for x in range(self.life.rows):
+            for y in range(self.life.cols):
+                if self.life.curr_generation[y][x] != 0:
                     pygame.draw.rect(
                         self.screen,
                         pygame.Color("green"),
