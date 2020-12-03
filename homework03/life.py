@@ -44,10 +44,15 @@ class GameOfLife:
         row, col = cell
         for i in [-1, 0, 1]:
             for j in [-1, 0, 1]:
-                if 0 <= row + i < self.rows and 0 <= col + j < self.cols and (i, j) != (0, 0):
+                if (
+                    0 <= row + i < self.rows
+                    and 0 <= col + j < self.cols
+
+                    and (i, j) != (0, 0)
+
+                ):
                     neighbours.append(self.curr_generation[row + i][col + j])
         return neighbours
-
 
     def get_next_generation(self) -> Grid:
 
