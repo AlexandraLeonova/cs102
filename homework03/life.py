@@ -70,7 +70,7 @@ class GameOfLife:
         """
         if not self.is_max_generations_exceeded:
             self.prev_generation = self.curr_generation
-            self.curr_generation = self.get_next_generation # type: ignore
+            self.curr_generation = self.get_next_generation  # type: ignore
             self.generations += 1
 
     @property
