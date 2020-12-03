@@ -47,9 +47,7 @@ class GameOfLife:
                 if (
                     0 <= row + i < self.rows
                     and 0 <= col + j < self.cols
-
                     and (i, j) != (0, 0)
-
                 ):
                     neighbours.append(self.curr_generation[row + i][col + j])
         return neighbours
@@ -108,7 +106,6 @@ class GameOfLife:
         game = GameOfLife((row, col))
         game.curr_generation = grid
         return game
-
 
     def save(self, filename: pathlib.Path) -> None:
         """
