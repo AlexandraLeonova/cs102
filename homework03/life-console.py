@@ -27,10 +27,31 @@ class Console(UI):
 
     def run(self) -> None:
         screen = curses.initscr()
-        curses.wrapper(self.draw_borders)
-        while not self.life.is_max_generations_exceeded and self.life.is_changing:
-            self.life.step()
-            self.draw_borders(screen)
+        curses.noecho()
+        screen.clear()
+        screen.refresh()
+        window = curses.newwin(self.life.rows + 2, self.life.cols + 2)
+        self.draw_borders(window)
+        window.timeout(1)
+        window.nodelay(True)
+
+        running = True
+        paused = False
+        while running:
+            char = window.getch()
+            if char == ord("\n"):
+                paused = False if paused else True
+            elif char == ord("S"):
+                self.life.save(self.save_path)
+            elif char == curses.ascii.ESC:
+                running = False
+            if not paused:
+                self.draw_grid(window)
+                window.refresh()
+                self.life.step()
+
+                sleep(1)
+
         curses.endwin()
 
 
