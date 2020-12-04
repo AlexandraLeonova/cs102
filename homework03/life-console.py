@@ -8,7 +8,7 @@ from ui import UI
 
 
 class Console(UI):
-    def __init__(self, life: GameOfLife) -> None:
+    def __init__(self, life: GameOfLife, save_path: pathlib.Path) -> None:
         super().__init__(life)
         self.save_path = save_path
 
