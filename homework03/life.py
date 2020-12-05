@@ -69,7 +69,7 @@ class GameOfLife:
         Выполнить один шаг игры.
         """
         if not self.is_max_generations_exceeded:
-            self.prev_generation = self.curr_generation
+            self.prev_generation = self.curr_generation[:]
             self.curr_generation = self.get_next_generation()  # type: ignore
             self.generations += 1
 
