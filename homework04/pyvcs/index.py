@@ -7,6 +7,7 @@ import typing as tp
 
 from pyvcs.objects import hash_object
 
+
 class GitIndexEntry(tp.NamedTuple):
     # @see: https://github.com/git/git/blob/master/Documentation/technical/index-format.txt
     ctime_s: int
@@ -63,6 +64,7 @@ def read_index(gitdir: pathlib.Path) -> tp.List[GitIndexEntry]:
         last_pos = new_last_pos + 1
     return result
 
+
 def write_index(gitdir: pathlib.Path, entries: tp.List[GitIndexEntry]) -> None:
     data = b"DIRC" + struct.pack("!2I", 2, len(entries))
     for entry in entries:
@@ -82,7 +84,9 @@ def ls_files(gitdir: pathlib.Path, details: bool = False) -> None:
             print(entry.name)
 
 
-def update_index(gitdir: pathlib.Path, paths: tp.List[pathlib.Path], write: bool = True) -> None:
+def update_index(
+    gitdir: pathlib.Path, paths: tp.List[pathlib.Path], write: bool = True
+) -> None:
     entries = read_index(gitdir)
     for path in paths:
         with path.open("rb") as f:

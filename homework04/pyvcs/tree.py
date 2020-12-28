@@ -8,7 +8,9 @@ from pyvcs.objects import hash_object
 from pyvcs.refs import get_ref, is_detached, resolve_head, update_ref
 
 
-def write_tree(gitdir: pathlib.Path, index: tp.List[GitIndexEntry], dirname: str = "") -> str:
+def write_tree(
+    gitdir: pathlib.Path, index: tp.List[GitIndexEntry], dirname: str = ""
+) -> str:
     tree_content: tp.List[tp.Tuple[int, pathlib.Path, bytes]] = []
     subtrees: tp.Dict[str, tp.List[GitIndexEntry]] = dict()
     files = [str(x) for x in (gitdir.parent / dirname).glob("*")]
@@ -28,14 +30,17 @@ def write_tree(gitdir: pathlib.Path, index: tp.List[GitIndexEntry], dirname: str
                 gitdir.parent / dirname / name,
                 bytes.fromhex(
                     write_tree(
-                        gitdir, subtrees[name], dirname + "/" + name if dirname != "" else name
+                        gitdir,
+                        subtrees[name],
+                        dirname + "/" + name if dirname != "" else name,
                     )
                 ),
             )
         )
     tree_content.sort(key=lambda x: x[1])
     data = b"".join(
-        f"{elem[0]:o} {elem[1].name}".encode() + b"\00" + elem[2] for elem in tree_content
+        f"{elem[0]:o} {elem[1].name}".encode() + b"\00" + elem[2]
+        for elem in tree_content
     )
     return hash_object(data, "tree", write=True)
 

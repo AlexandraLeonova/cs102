@@ -16,7 +16,9 @@ def hash_object(data: bytes, fmt: str, write: bool = False) -> str:
     if write:
         gitdir = repo_find()
         (gitdir / "objects" / data_hash_sum[:2]).mkdir(exist_ok=True)
-        with (gitdir / "objects" / data_hash_sum[:2] / data_hash_sum[2:]).open("wb") as f:
+        with (gitdir / "objects" / data_hash_sum[:2] / data_hash_sum[2:]).open(
+            "wb"
+        ) as f:
             f.write(zlib.compress(formatted_data))
     return data_hash_sum
 
