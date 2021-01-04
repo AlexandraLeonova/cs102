@@ -26,7 +26,11 @@ class GitIndexEntry(tp.NamedTuple):
 
     def pack(self) -> bytes:
         return struct.pack(
-            f"!10I20sH{len(self.name)}s{8 - (62 + len(self.name)) % 8}x",
+            "!LLLLLLLLLL20sH"
+            + str(len(self.name))
+            + "s"
+            + str(8 - (62 + len(self.name)) % 8)
+            + "x",
             self.ctime_s,
             self.ctime_n,
             self.mtime_s,
@@ -44,34 +48,49 @@ class GitIndexEntry(tp.NamedTuple):
 
     @staticmethod
     def unpack(data: bytes) -> "GitIndexEntry":
-        data_list = list(struct.unpack(f"!10I20sH{len(data) - 62}s", data))
-        data_list[-1] = data_list[-1].strip(b"\00").decode()
-        return GitIndexEntry(*data_list)
+        index_unpacked_things = struct.unpack("!LLLLLLLLLL20sH" + str(len(data) - 62) + "s", data)
+        return GitIndexEntry(
+            *(
+                list(index_unpacked_things[:-1])
+                + [index_unpacked_things[-1].rstrip(b"\00").decode()]
+            )
+        )
 
 
 def read_index(gitdir: pathlib.Path) -> tp.List[GitIndexEntry]:
-    if not (gitdir / "index").exists():
+    index = "index"
+    if not (gitdir / index).exists():
         return []
-    with (gitdir / "index").open("rb") as f:
-        data = f.read()
-    last_pos = 12
-    result = []
-    for i in range(struct.unpack("!I", data[8:12])[0]):
-        new_last_pos = data.index(b"\00", last_pos + 62)
-        while data[new_last_pos] != 0 or (new_last_pos - 11) % 8 != 0:
-            new_last_pos += 1
-        result.append(GitIndexEntry.unpack(data[last_pos : new_last_pos + 1]))
-        last_pos = new_last_pos + 1
-    return result
+    with (gitdir / index).open("rb") as file:
+        header = file.read(12)
+        main_content = file.read()
+    ind = []
+    main_content_copy = main_content
+    end_position = 0
+    for i in range(struct.unpack(">I", header[8:])[0]):
+        end_position = len(main_content_copy) - 1
+        for m in range(63, len(main_content_copy), 8):
+            if main_content_copy[m] == 0:
+                end_position = m
+                break
+        ind += [GitIndexEntry.unpack(main_content_copy[: end_position + 1])]
+        if len(main_content_copy) != end_position - 1:
+            main_content_copy = main_content_copy[end_position + 1 :]
+    return ind
 
 
 def write_index(gitdir: pathlib.Path, entries: tp.List[GitIndexEntry]) -> None:
-    data = b"DIRC" + struct.pack("!2I", 2, len(entries))
+    signature = b"DIRC"
+    version = 2
+    header = struct.pack("!4sLL", signature, version, len(entries))
+    packed_entries = b""
     for entry in entries:
-        data += entry.pack()
-    data += hashlib.sha1(data).digest()
-    with (gitdir / "index").open("wb") as f:
-        f.write(data)
+        packed_entries += entry.pack()
+    content = header + packed_entries
+    digest = hashlib.sha1(content).digest()
+
+    with open(str(gitdir) + os.path.sep + "index", "wb") as f:
+        f.write(content + digest)
 
 
 def ls_files(gitdir: pathlib.Path, details: bool = False) -> None:
@@ -84,31 +103,36 @@ def ls_files(gitdir: pathlib.Path, details: bool = False) -> None:
             print(entry.name)
 
 
-def update_index(
-    gitdir: pathlib.Path, paths: tp.List[pathlib.Path], write: bool = True
-) -> None:
-    entries = read_index(gitdir)
+def update_index(gitdir: pathlib.Path, paths: tp.List[pathlib.Path], write: bool = True) -> None:
+    entry = {entry.name: entry for entry in read_index(gitdir)}
     for path in paths:
+        if str(path) in entry:
+            del entry[str(path)]
         with path.open("rb") as f:
             data = f.read()
-        stat = path.stat()
-        hash = hash_object(data, "blob", write=True)
-        entries.append(
-            GitIndexEntry(
-                ctime_s=int(stat.st_ctime),
-                ctime_n=0,
-                mtime_s=int(stat.st_mtime),
-                mtime_n=0,
-                dev=stat.st_dev,
-                ino=stat.st_ino,
-                mode=stat.st_mode,
-                uid=stat.st_uid,
-                gid=stat.st_gid,
-                size=stat.st_size,
-                sha1=bytes.fromhex(hash),
-                flags=len(path.name),
-                name=str(path),
-            )
+        stat = os.stat(path)
+        sha1 = hash_object(data, "blob", write=True)
+        entry.update(
+            {
+                str(path): GitIndexEntry(
+                    ctime_s=int(stat.st_ctime),
+                    ctime_n=stat.st_ctime_ns % len(str(int(stat.st_ctime))),
+                    mtime_s=int(stat.st_mtime),
+                    mtime_n=stat.st_mtime_ns % len(str(int(stat.st_mtime))),
+                    dev=stat.st_dev,
+                    ino=stat.st_ino,
+                    mode=stat.st_mode,
+                    uid=stat.st_uid,
+                    gid=stat.st_gid,
+                    size=stat.st_size,
+                    sha1=bytes.fromhex(sha1),
+                    flags=7,
+                    name=str(path),
+                )
+            }
         )
     if write:
-        write_index(gitdir, sorted(entries, key=lambda x: x.name))
+        entry_list = []
+        for name in sorted(entry.keys()):
+            entry_list.append(entry[name])
+        write_index(gitdir, entry_list)
