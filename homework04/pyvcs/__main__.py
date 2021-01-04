@@ -50,7 +50,6 @@ def add_hash_object_subparser(subparsers) -> None:
     )
     hash_object_subparser.add_argument(
         "path", type=pathlib.Path, help="Read object from <file>"
-
     )
     hash_object_subparser.set_defaults(func=cmd_hash_object)
 
