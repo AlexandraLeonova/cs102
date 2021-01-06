@@ -1,7 +1,7 @@
 import typing as tp
 from collections import defaultdict
 
-import community as community_louvain  # type: ignore 
+import community as community_louvain  # type: ignore
 import matplotlib.pyplot as plt  # type: ignore
 import networkx as nx  # type: ignore
 import pandas as pd  # type: ignore
