@@ -3,8 +3,8 @@ import time
 import typing as tp
 from string import Template
 
-import pandas as pd
-from pandas import json_normalize
+import pandas as pd  # type: ignore
+from pandas import json_normalize 
 
 from requests.api import post
 from vkapi import config, session
