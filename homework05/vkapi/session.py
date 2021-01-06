@@ -27,14 +27,14 @@ class Session:
         self.retries = Retry(
             total=max_retries, backoff_factor=backoff_factor, status_forcelist=[500]
         )
-        self.mount(base_url, HTTPAdapter(max_retries=self.retries))  # type: ignore 
+        self.mount(base_url, HTTPAdapter(max_retries=self.retries))  # type: ignore
         self.base_url = base_url
         self.timeout = timeout
 
-    def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:  
+    def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
         kwargs["timeout"] = kwargs.get("timeout", self.timeout)
         return super().get(f"{self.base_url}/{url}", *args, **kwargs)  # type: ignore
 
-    def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:  
+    def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
         kwargs["timeout"] = kwargs.get("timeout", self.timeout)
         return super().post(f"{self.base_url}/{url}", *args, **kwargs)  # type: ignore
