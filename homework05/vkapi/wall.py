@@ -6,7 +6,7 @@ from string import Template
 import pandas as pd  # type: ignore
 from pandas import json_normalize
 
-from requests.api import post
+from requests.api import post  # type: ignore
 from vkapi import config, session
 from vkapi.exceptions import APIError
 
