@@ -40,7 +40,7 @@ def plot_communities(net: tp.List[tp.Tuple[int, int]]) -> None:
     graph = nx.Graph()
     graph.add_edges_from(net)
     layout = nx.spring_layout(graph)
-    partition = community_louvain.best_partition(graph)
+    partition = community_louvain.best_partition(graph)  # type: ignore
     nx.draw(graph, layout, node_size=25, node_color=list(partition.values()), alpha=0.8)
     plt.title("Ego Network", size=15)
     plt.show()
@@ -50,7 +50,7 @@ def get_communities(net: tp.List[tp.Tuple[int, int]]) -> tp.Dict[int, tp.List[in
     communities = defaultdict(list)
     graph = nx.Graph()
     graph.add_edges_from(net)
-    partition = community_louvain.best_partition(graph)
+    partition = community_louvain.best_partition(graph)  # type: ignore
     for uid, cluster in partition.items():
         communities[cluster].append(uid)
     return communities
