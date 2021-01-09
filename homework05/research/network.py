@@ -1,9 +1,9 @@
 import typing as tp
 from collections import defaultdict
 
-import matplotlib.pyplot as plt
-import networkx as nx
-import pandas as pd
+import matplotlib.pyplot as plt  # type: ignore
+import networkx as nx  # type: ignore
+import pandas as pd  # type: ignore
 
 from vkapi.friends import get_friends, get_mutual
 
