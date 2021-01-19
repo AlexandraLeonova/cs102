@@ -6,7 +6,7 @@ from requests.packages.urllib3.util.retry import Retry  # type: ignore
 from requests.exceptions import RetryError  # type: ignore
 
 
-class Session:
+class Session(requests.Session):
     """
     Сессия.
 
