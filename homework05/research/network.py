@@ -1,6 +1,7 @@
 import typing as tp
 from collections import defaultdict
 
+import community as community_louvain  # type: ignore
 import matplotlib.pyplot as plt  # type: ignore
 import networkx as nx  # type: ignore
 import pandas as pd  # type: ignore
@@ -19,7 +20,7 @@ def ego_network(
     """
     network = []
     if not friends:
-        get_friends(user_id).items  # type: ignore
+        friends = get_friends(user_id).items  # type: ignore
     mutual_friends = get_mutual(source_uid=user_id, target_uids=friends)
     for target in mutual_friends:
         for friend in target["common_friends"]:  # type: ignore
