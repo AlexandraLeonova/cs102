@@ -15,7 +15,7 @@ Node = tp.Tuple[str, str]
 
 def traverse(graph: tp.List[Node]):
     i = -1
-    self_ref: tp.List[Node] = []
+    self_ref: tp.List[tp.Tuple[Node, int]] = []
     for link in graph:
         i += 1
         if link[0] == link[1]:
