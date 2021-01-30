@@ -22,12 +22,13 @@ def traverse(graph: tp.List[Node]):
             self_ref.append((link, i))
 
     if len(self_ref) != 0:
-        return (self_ref[0][0][0], graph[self_ref[0][1]+1][0])
+        return (self_ref[0][0][0], graph[self_ref[0][1] + 1][0])
         
 
     if graph[i][1] != graph[0][0]:
         graph[i] = (graph[i][0], graph[0][0])
     
+
     return graph[i]
 
 def load_tasks(taskfile: str = "tasks.txt") -> tp.List[tp.List[Node]]:
@@ -84,7 +85,9 @@ def checking_broken(graph: tp.List[Node]) -> int:
 
 def main():
     parser = argparse.ArgumentParser(description="Bugged quests")
-    parser.add_argument("quest_log", help="Path to questlog", default="tasks.txt", nargs='?', type=str)
+    parser.add_argument(
+        "quest_log", help="Path to questlog", default="tasks.txt", nargs="?", type=str
+    )
     args = parser.parse_args()
     tasks = load_tasks(args.quest_log)
     for graph in tasks:
