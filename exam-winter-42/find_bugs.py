@@ -84,7 +84,7 @@ def checking_broken(graph: tp.List[Node]) -> int:
 
 def main():
     parser = argparse.ArgumentParser(description="Bugged quests")
-    parser.add_argument("quest_log", help="Path to questlog", type=str)
+    parser.add_argument("quest_log", help="Path to questlog", default="tasks.txt", nargs='?', type=str)
     args = parser.parse_args()
     tasks = load_tasks(args.quest_log)
     for graph in tasks:
