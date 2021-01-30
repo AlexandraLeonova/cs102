@@ -13,6 +13,7 @@ Node = tp.Tuple[str, str]
 # B - C no loop 2
 # C - A loop=pass broken
 
+
 def traverse(graph: tp.List[Node]):
     i = -1
     self_ref: tp.List[tp.Tuple[Node, int]] = []
@@ -23,13 +24,12 @@ def traverse(graph: tp.List[Node]):
 
     if len(self_ref) != 0:
         return (self_ref[0][0][0], graph[self_ref[0][1] + 1][0])
-        
 
     if graph[i][1] != graph[0][0]:
         graph[i] = (graph[i][0], graph[0][0])
-    
 
     return graph[i]
+
 
 def load_tasks(taskfile: str = "tasks.txt") -> tp.List[tp.List[Node]]:
     res: tp.List[tp.List[Node]] = []
@@ -58,8 +58,9 @@ def f_letters(graph: tp.List[Node]) -> tp.List[str]:
     f_letters = [j for i in letters for j in i]
     return f_letters
 
+
 def checking_broken(graph: tp.List[Node]) -> int:
-    letters: tp.Dict[str, int] = {} 
+    letters: tp.Dict[str, int] = {}
     letters_count = len(set(f_letters(graph)))
     broken_links: tp.List[Node] = []
     if not letters_count == len(graph):
@@ -99,5 +100,6 @@ def main():
             print(f"{fix[0]} -> {fix[1]}")
 
     return
+
 
 main()
