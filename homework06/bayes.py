@@ -3,8 +3,8 @@ import string
 import math
 import copy
 
-class NaiveBayesClassifier:
 
+class NaiveBayesClassifier:
     def __init__(self, alpha=1):
         self.alpha = alpha
         self.labels = []
@@ -13,7 +13,6 @@ class NaiveBayesClassifier:
 
     def fit(self, statez, labelz):
         """ Fit Naive Bayes classifier according to X, y. """
-        
 
         self.labels = [label for label in set(labelz)]
         self.labels.sort()
