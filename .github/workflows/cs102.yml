@@ -14,7 +14,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install black mypy pylint pygame setuptools pyfakefs responses httpretty pandas networkx requests community matplotlib
+        pip install black mypy pylint pygame setuptools pyfakefs responses httpretty pandas networkx requests community matplotlib sqlalchemy bs4 bottle
     - name: Run black
       run: |
         black --check --diff --color --exclude "test*" ${{ github.head_ref }}
