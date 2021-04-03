@@ -5,7 +5,7 @@ import copy
 
 class NaiveBayesClassifier:
 
-    def __init__(self, alpha = 1):
+    def __init__(self, alpha=1):
         self.alpha = alpha
         self.labels = []
         self.table = []
@@ -14,6 +14,7 @@ class NaiveBayesClassifier:
     def fit(self, statez, labelz):
         """ Fit Naive Bayes classifier according to X, y. """
         
+
         self.labels = [label for label in set(labelz)]
         self.labels.sort()
         labels_counter = dict.fromkeys(self.labels, 0)
@@ -42,7 +43,6 @@ class NaiveBayesClassifier:
             labels_sum[self.labels.index(value)] += 1
         self.label_chance = [math.log(value / sum(labels_sum)) for value in labels_sum]
 
-
     def predict(self, statez):
         """ Perform classification on an array of test vectors X. """
         labels_for_titles = []
@@ -56,7 +56,9 @@ class NaiveBayesClassifier:
                     if self.table[thing][0] == word:
                         for i in enumerate(len(labels_chance)):
                             labels_chance[i] += math.log(self.table[thing][2 * i + 2])
-            labels_for_titles.append(self.labels[labels_chance.index(max(labels_chance))])
+            labels_for_titles.append(
+                self.labels[labels_chance.index(max(labels_chance))]
+            )
         return labels_for_titles
 
     def score(self, X_test, y_test):
@@ -68,4 +70,3 @@ class NaiveBayesClassifier:
                 count += 1
         score = count / len(y_test)
         return score
-

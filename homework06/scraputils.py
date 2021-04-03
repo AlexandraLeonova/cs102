@@ -6,36 +6,40 @@ from bs4 import BeautifulSoup
 def extract_news(parser):
     """ Extract news from a given web page """
     news_list = []
-    tbl_list = parser.table.findAll('table')
-    list_of_titles = tbl_list[1].findAll('tr', 'athing')
-    list_of_info = tbl_list[1].findAll('td', 'subtext')
+    tbl_list = parser.table.findAll("table")
+    list_of_titles = tbl_list[1].findAll("tr", "athing")
+    list_of_info = tbl_list[1].findAll("td", "subtext")
 
     for i in enumerate(len(list_of_titles)):
-        score = list_of_info[i].find('span', 'score')
-        user = list_of_info[i].find('a', 'hnuser')
-        title = list_of_titles[i].find('a', 'storylink')
+        score = list_of_info[i].find("span", "score")
+        user = list_of_info[i].find("a", "hnuser")
+        title = list_of_titles[i].find("a", "storylink")
 
-        news_id = list_of_titles[i]['id']
-        comments_href = 'item?id='+news_id
-        comments = list_of_info[i].findAll('a', {'href': comments_href})
+        news_id = list_of_titles[i]["id"]
+        comments_href = "item?id=" + news_id
+        comments = list_of_info[i].findAll("a", {"href": comments_href})
 
-        if comments[1].text == 'discuss':
+        if comments[1].text == "discuss":
             number_of_comments = 0
         else:
             number_of_comments = comments[1].text.split()[0]
 
-        news_list.append({'author': user.text,
-                          'comments': number_of_comments,
-                          'points': int(score.text.split()[0]),
-                          'title': title.text,
-                          'url': title['href']})
+        news_list.append(
+            {
+                "author": user.text,
+                "comments": number_of_comments,
+                "points": int(score.text.split()[0]),
+                "title": title.text,
+                "url": title["href"],
+            }
+        )
     return news_list
 
 
 def extract_next_page(parser):
     """ Extract next page URL """
-    more_page = parser.table.findAll('a', 'morelink')
-    return more_page[0]['href']
+    more_page = parser.table.findAll("a", "morelink")
+    return more_page[0]["href"]
 
 
 def get_news(url, n_pages=1):
