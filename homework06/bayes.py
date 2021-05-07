@@ -12,7 +12,7 @@ class NaiveBayesClassifier:
         self.label_chance = []
 
     def fit(self, statez, labelz):
-        """ Fit Naive Bayes classifier according to X, y. """
+        """Fit Naive Bayes classifier according to X, y."""
 
         self.labels = [label for label in set(labelz)]
         self.labels.sort()
@@ -43,7 +43,7 @@ class NaiveBayesClassifier:
         self.label_chance = [math.log(value / sum(labels_sum)) for value in labels_sum]
 
     def predict(self, statez):
-        """ Perform classification on an array of test vectors X. """
+        """Perform classification on an array of test vectors X."""
         labels_for_titles = []
         for state in statez:
             state.lower()
@@ -61,7 +61,7 @@ class NaiveBayesClassifier:
         return labels_for_titles
 
     def score(self, X_test, y_test):
-        """ Returns the mean accuracy on the given test data and labels. """
+        """Returns the mean accuracy on the given test data and labels."""
         prediction = self.predict(X_test)
         count = 0
         for i in enumerate(len(prediction)):
