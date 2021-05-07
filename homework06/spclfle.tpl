@@ -13,38 +13,22 @@
                 <th>Author</th>
                 <th>#Likes</th>
                 <th>#Comments</th>
-                <th colspan="3">Label</th>
+		<th>Label</th>
             </thead>
             <tbody>
-                %for row in good:
+                %for row in rows:
                 <tr>
-                    <td><a style="color: green;" href="{{ row.url }}">{{ row.title }}</a></td>
-                    <td>{{ row.author }}</td>
-                    <td>{{ row.points }}</td>
-                    <td>{{ row.comments }}</td>
-                </tr>
-                %end
-                %for row in maybe:
-                <tr>
-                    <td><a style="color: orange;" href="{{ row.url }}">{{ row.title }}</a></td>
-                    <td>{{ row.author }}</td>
-                    <td>{{ row.points }}</td>
-                    <td>{{ row.comments }}</td>
-                </tr>
-                %end
-                %for row in never:
-                <tr>
-                    <td><a style="color: red;" href="{{ row.url }}">{{ row.title }}</a></td>
-                    <td>{{ row.author }}</td>
-                    <td>{{ row.points }}</td>
-                    <td>{{ row.comments }}</td>
+                    <td><a href="{{ row[2].url }}">{{ row[1] }}</a></td>
+		    <td>{{ row[2].author }}</td>
+                    <td>{{ row[2].points }}</td>
+                    <td>{{ row[2].comments }}</td>
+		    <td>{{ row[0] }}</td>
                 </tr>
                 %end
             </tbody>
             <tfoot class="full-width">
                 <tr>
-                    <th colspan="7">
-                        <a href="/update" class="ui right floated small primary button">I Wanna more Hacker News!</a>
+                    <th colspan="5">
                     </th>
                 </tr>
             </tfoot>
