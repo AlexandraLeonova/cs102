@@ -48,4 +48,5 @@ def recommendations():
     rows = [rows[i] for i in range(len(rows)) if predictions[i] == "good"]
     return template("news_recommendations", rows=rows)
 
+
 run(host="localhost", port=8080)

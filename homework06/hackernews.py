@@ -70,8 +70,12 @@ def classify_news():
                     url=item.url,
                 )
             )
-    statez = [x.translate(str.maketrans("", "", string.punctuation)).lower() for x in statez]
-    x_cleared = [x.translate(str.maketrans("", "", string.punctuation)).lower() for x in x_test]
+    statez = [
+        x.translate(str.maketrans("", "", string.punctuation)).lower() for x in statez
+    ]
+    x_cleared = [
+        x.translate(str.maketrans("", "", string.punctuation)).lower() for x in x_test
+    ]
     model = NaiveBayesClassifier(alpha=0.01)
     model.fit(statez, labelz)
     predicted_news = model.predict(x_cleared)
