@@ -55,9 +55,7 @@ class NaiveBayesClassifier:
                     if self.table[thing][0] == word:
                         for i in enumerate(len(labels_chance)):
                             labels_chance[i] += math.log(self.table[thing][2 * i + 2])
-            labels_for_titles.append(
-                self.labels[labels_chance.index(max(labels_chance))]
-            )
+            labels_for_titles.append(self.labels[labels_chance.index(max(labels_chance))])
         return labels_for_titles
 
     def score(self, X_test, y_test):
