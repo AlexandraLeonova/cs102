@@ -1,6 +1,6 @@
-from bottle import TEMPLATE_PATH  #type: ignore
-from bottle import route, run, template  #type: ignore
-from bottle import redirect, request  #type: ignore
+from bottle import TEMPLATE_PATH  # type: ignore
+from bottle import route, run, template  # type: ignore
+from bottle import redirect, request  # type: ignore
 from scraputils import get_news
 from db import News, session
 from bayes import NaiveBayesClassifier
