@@ -1,9 +1,9 @@
-from bottle import TEMPLATE_PATH
-from bottle import route, run, template
-from bottle import redirect, request
-from data_to_sql import session, News
+from bottle import TEMPLATE_PATH  #type: ignore
+from bottle import route, run, template  #type: ignore
+from bottle import redirect, request  #type: ignore
+from scraputils import get_news
+from db import News, session
 from bayes import NaiveBayesClassifier
-
 
 TEMPLATE_PATH.insert(0, "")
 
